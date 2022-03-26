@@ -1,0 +1,8 @@
+const PRICE = 15
+
+EXPENDEDORA = EXPEN[0],
+EXPEN[v:0..90] = ( when (v EXPEN[v+5]
+                 | when (v EXPEN[v+10]
+                 | when (v EXPEN[v+20]
+                 | when (v>=PRICE) dar_coca -> (dar_vuelto -> EXPEN[0])
+                 ).

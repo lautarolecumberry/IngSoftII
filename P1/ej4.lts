@@ -1,0 +1,9 @@
+// 4
+const N = 2
+range T = 0..N
+
+VAR = VAR[0],
+VAR[u:T] = (read[u] ->VAR[u]
+|write[v:T]->VAR[v]).
+
+// si, se puede correr la traza

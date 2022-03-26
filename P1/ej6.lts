@@ -1,0 +1,7 @@
+SENSOR (N=3) = SENSOR[0],
+SENSOR[i:0..N] = ( when(i<2) bajo -> SENSOR[i]
+                 | when(i>8) alto -> SENSOR[i]
+                 | normal -> SENSOR[i]
+                 | sensar -> SENSOR[i+1]
+                 | when (i > 0) sensar -> SENSOR[i-1]
+                 ).

@@ -1,0 +1,1 @@
+Al minimizar ambos procesos se puede ver que el grafo es el mismo, por lo tanto, son equivalentes.

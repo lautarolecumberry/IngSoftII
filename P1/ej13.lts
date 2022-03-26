@@ -1,0 +1,19 @@
+// Ejercicio 13.. Considere la c ́elula de producci ́on industrial del ejercicio anterior. Modele una variante
+// de la misma como un proceso FSP, en la cual no s ́olo tenemos objetos de tipo A y objetos de tipo B,
+// sino tambi ́en objetos de tipo C y D. Los objetos de tipo C deben ser prensados y taladrados, en ese
+// orden, mientras que los objetos de tipo D deben ser taladrados y prensados, en ese orden.
+
+// es secuencial esto????? es un asco esto, primero arreglar el 11
+
+// ESTO NO ANDA, hay que ponerle una variable o algo para saber que es cuando vuelve del taladro/prensa.
+
+CELULA = ( llegaA -> mueveCinta -> pararCinta -> brazoMueveAPrensa -> PRENSA[0]
+         | llegaB -> mueveCinta -> pararCinta -> brazoMueveATaladro -> TALADRO
+         | llegaC -> mueveCinta -> pararCinta -> brazoMueveATaladro -> TALADRO
+         | llegaD -> mueveCinta -> pararCinta -> brazoMueveATaladro -> TALADRO
+         ).
+
+PRENSA = PRENSA[0],
+PRENSA[i:0..4] = (when(i<1) brazoMueveAPrensa -> prensado -> brazoMueveACelula -> CELULA).
+
+TALADRO[i:0..4] = (when(i<1) brazoMueveATaladro -> taladrado -> brazoMueveACelula -> CELULA).

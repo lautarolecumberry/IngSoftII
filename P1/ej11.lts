@@ -1,0 +1,13 @@
+// Ejercicio 11.. Considere una c ́elula de producci ́on industrial, en la cual se procesan objetos, realizando
+// un prensado de los mismos. Los objetos que se reciben son de cierto tipo A, y llegan a trav ́es de una
+// cinta transportadora. Al llegar el primer elemento de la cinta a la posici ́on de extracci ́on, la cinta se
+// para. Luego, un brazo mec ́anico levanta el elemento de la cinta y lo lleva a la prensa (la cual debe
+// estar desocupada), para su prensado. Luego del prensado, otro brazo mec ́anico extrae el elemento de
+// la prensa y lo deposita en la salida de la c ́elula. Modele la c ́elula de producci ́on como un proceso FSP
+
+// es secuencial esto?????
+
+CELULA = (llegaA -> mueveCinta -> pararCinta -> brazoMueveAPrensa -> PRENSA[0]).
+
+PRENSA = PRENSA[0],
+PRENSA[i:0..4] = (when(i<1) brazoMueveAPrensa -> prensado -> brazoMueveACelula -> CELULA).

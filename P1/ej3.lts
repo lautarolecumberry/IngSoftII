@@ -1,0 +1,31 @@
+// 3)a)
+MEETING = (hello -> (converse -> (goodbye -> STOP))).
+
+// 3)b)
+JOB = (arrive -> (work -> (leave -> JOB))).
+
+// 3)c)
+GAME = ( {one, two} -> TOWIN
+| three -> (lose -> GAME)
+),
+TOWIN = (win -> GAME).
+
+// 3)d)
+MOVIE = (ahead -> A),
+A = ( left -> END
+| right -> MOVIE
+).
+
+// 3)e)
+FOURTICK = (tick -> (tick -> (tick -> (tick -> STOP)))).
+
+// 3)f)
+DOUBLE = (in[i:0..2] -> out[i] -> DOUBLE).
+
+// 3)g)
+PERSON = ( weekend -> (sleep -> AFTERWEEKEND)
+| weekend -> (sleep -> (work -> PERSON))
+),
+AFTERWEEKEND = ( play -> PERSON
+| shop -> PERSON
+).

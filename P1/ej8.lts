@@ -1,0 +1,13 @@
+const MIN_FREC = 88
+const MAX_FREC = 90
+
+RADIO = (on -> FREC[MAX_FREC]),
+FREC[v:MIN_FREC..MAX_FREC] = ( reset -> FREC[MAX_FREC]
+                             | when (v>MIN_FREC) scan -> ESCANEANDO[v]
+                             | off -> RADIO
+                             ),
+ESCANEANDO[f:MIN_FREC..MAX_FREC] = ( sintoniza -> FREC[f]
+                                   | when (f>MIN_FREC) ruido -> ESCANEANDO[f-1]
+                                   | when (f==MIN_FREC) no_sintonizado -> FREC[MAX_FREC]
+                                   | off -> RADIO
+                                   ).

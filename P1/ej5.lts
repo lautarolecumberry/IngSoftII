@@ -1,0 +1,2 @@
+// 5
+BISTABLE = ( trigger -> ({zero, one} -> BISTABLE)).
