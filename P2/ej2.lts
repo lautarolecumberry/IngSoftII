@@ -1,0 +1,17 @@
+const K = 5
+
+RECURSO = RECURSO[0],
+RECURSO[v:0..K] = ( when (v>0) leer -> RECURSO[v-1]
+                  | when (v<K) escribir -> RECURSO[v+1]
+                  ).
+
+// con lo de arriba ya esta no? en las slides esta lo de abajo pero el
+// grafo de RECURSO y RECURSo2 son iguales. 
+// supongo que es para que aparezcan los procesos de LECTOR y ESCRITOR
+// para que quede "bien" el modelado.
+
+
+// LECTOR = (leer -> LECTOR).
+// ESCRITOR = (escribir -> ESCRITOR).
+
+// ||RECURSO2 = (RECURSOO || LECTOR || ESCRITOR).

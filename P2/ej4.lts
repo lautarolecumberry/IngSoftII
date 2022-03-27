@@ -1,0 +1,14 @@
+// es esto?
+
+const M=6
+
+OLLA = OLLA[0],
+OLLA[p:0..M] = ( when (p>0) servir -> OLLA[p-1]
+               | when (p==0) llenar -> OLLA[M]
+               ).
+
+SALVAJE = (servir -> SALVAJE).
+
+COCINERO = (llenar -> COCINERO).
+
+||TRIBU = (OLLA || SALVAJE || COCINERO).
