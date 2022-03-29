@@ -1,17 +1,15 @@
-const K = 5
+const K = 1
+const N = 1
+const M = 1
 
-RECURSO = RECURSO[0],
-RECURSO[v:0..K] = ( when (v>0) leer -> RECURSO[v-1]
-                  | when (v<K) escribir -> RECURSO[v+1]
-                  ).
+CONTROLADOR = CONTROLADOR[0][0],
+CONTROLADOR[r:0..K][w:0..1] = ( when (r<K && w==0) acquireRead -> CONTROLADOR[r+1][w]
+                              | when (r>0) releaseRead -> CONTROLADOR[r-1][w]
+                              | when (r==0 && w==0) acquireWrite -> CONTROLADOR[r][w+1]
+                              | when (w>0) releaseWrite -> CONTROLADOR[r][w-1]
+                              ).
 
-// con lo de arriba ya esta no? en las slides esta lo de abajo pero el
-// grafo de RECURSO y RECURSo2 son iguales. 
-// supongo que es para que aparezcan los procesos de LECTOR y ESCRITOR
-// para que quede "bien" el modelado.
+LECTOR = (acquireRead -> leer -> releaseRead -> LECTOR).
+ESCRITOR = (acquireWrite -> escribir -> releaseWrite -> ESCRITOR).
 
-
-// LECTOR = (leer -> LECTOR).
-// ESCRITOR = (escribir -> ESCRITOR).
-
-// ||RECURSO2 = (RECURSOO || LECTOR || ESCRITOR).
+||RECURSO2 = (CONTROLADOR || i[1..N]:LECTOR || j[1..M]:ESCRITOR).
