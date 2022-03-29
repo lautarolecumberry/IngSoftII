@@ -3,13 +3,17 @@
 // de tipo B, y se cuenta con un taladro (adem ́as de la prensa). Los objetos de tipo A deben ser prensados,
 // mientras que los objetos de tipo B deben ser taladrados.
 
-// es secuencial esto????? arreglar el 11 primero, esto esta mal
-
-CELULA = (llegaA -> mueveCinta -> pararCinta -> brazoMueveAPrensa -> PRENSA[0]
+CINTA = (llegaA -> mueveCinta -> pararCinta -> brazoMueveAPrensa -> PRENSA[0]
          | llegaB -> mueveCinta -> pararCinta -> brazoMueveATaladro -> TALADRO
          ).
+CINTA = (llegaA -> mueveCinta -> agarrarA -> CINTA
+        |llegaB -> mueveCinta -> agarrarB -> CINTA).
+BRAZO1 = (agarrarA -> brazoMueveAPrensa -> BRAZO1
+         |agarrarB -> brazoMueveATaladro -> BRAZO1).
+PRENSA = (brazoMueveAPrensa -> prensado -> prensaACelula -> PRENSA).
+TALADRO = (brazoMueveATaladro -> taladrado -> taladroACelula -> TALADRO).
+BRAZO2 = (prensaACelula -> saleA -> BRAZO2
+         |taladroACelula -> saleB -> BRAZO2).
 
-PRENSA = PRENSA[0],
-PRENSA[i:0..4] = (when(i<1) brazoMueveAPrensa -> prensado -> brazoMueveACelula -> CELULA).
+||CELULA = (CINTA || BRAZO1 || PRENSA || TALADRO || BRAZO2).
 
-TALADRO[i:0..4] = (when(i<1) brazoMueveATaladro -> taladrado -> brazoMueveACelula -> CELULA).

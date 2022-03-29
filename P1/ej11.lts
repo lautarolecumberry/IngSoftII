@@ -5,9 +5,9 @@
 // estar desocupada), para su prensado. Luego del prensado, otro brazo mec ́anico extrae el elemento de
 // la prensa y lo deposita en la salida de la c ́elula. Modele la c ́elula de producci ́on como un proceso FSP
 
-// es secuencial esto?????
+CINTA = (llegaA -> mueveCinta -> agarrarA -> CINTA).
+BRAZO1 = (agarrarA -> brazoMueveAPrensa -> BRAZO1).
+PRENSA = (brazoMueveAPrensa -> prensado -> brazoMueveACelula -> PRENSA).
+BRAZO2 = (brazoMueveACelula -> saleA -> BRAZO2).
 
-CELULA = (llegaA -> mueveCinta -> pararCinta -> brazoMueveAPrensa -> PRENSA[0]).
-
-PRENSA = PRENSA[0],
-PRENSA[i:0..4] = (when(i<1) brazoMueveAPrensa -> prensado -> brazoMueveACelula -> CELULA).
+||CELULA = (CINTA || BRAZO1 || PRENSA || BRAZO2).
