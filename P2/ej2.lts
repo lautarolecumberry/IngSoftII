@@ -1,15 +1,18 @@
-const K = 1
-const N = 1
+const N = 3
 const M = 1
+const K = 2
+
+LECTOR = (acq -> leer -> rel -> LECTOR).
+ESCRITOR = (acq -> (escribir -> rel -> ESCRITOR
+                   | leer -> rel -> ESCRITOR)).
 
 CONTROLADOR = CONTROLADOR[0][0],
-CONTROLADOR[r:0..K][w:0..1] = ( when (r<K && w==0) acquireRead -> CONTROLADOR[r+1][w]
-                              | when (r>0) releaseRead -> CONTROLADOR[r-1][w]
-                              | when (r==0 && w==0) acquireWrite -> CONTROLADOR[r][w+1]
-                              | when (w>0) releaseWrite -> CONTROLADOR[r][w-1]
-                              ).
+CONTROLADOR[r:0..N][w:0..M] = ( when (r < K && w == 0) l.acq -> CONTROLADOR[r+1][w]
+                              | l.rel -> CONTROLADOR[r-1][w]
+                              | when (r == 0 && w == 0) e.acq -> CONTROLADOR[r][w+1]
+                              | e.rel -> CONTROLADOR[r][w-1] ).
 
-LECTOR = (acquireRead -> leer -> releaseRead -> LECTOR).
-ESCRITOR = (acquireWrite -> escribir -> releaseWrite -> ESCRITOR).
-
-||RECURSO2 = (CONTROLADOR || i[1..N]:LECTOR || j[1..M]:ESCRITOR).
+||SYS = (l[1..N]:LECTOR || e[1..M]:ESCRITOR || CONTROLADOR) / {l[i:1..N].acq/l.acq,
+                                                               e[j:1..M].acq/e.acq,
+                                                               l[i:1..N].rel/l.rel,
+                                                               e[i:1..M].rel/e.rel}.

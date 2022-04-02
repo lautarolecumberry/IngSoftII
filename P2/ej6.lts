@@ -1,0 +1,22 @@
+SENDER = SENDER[0],
+SENDER[ntfs:0..1] = (from_net_layer -> A[ntfs]),
+
+
+A[ntfs:0..1] = (to_phys_layer -> start_timer -> ( timeout -> A[ntfs]
+                                                | from_phys_layer -> B[ntfs])),
+
+
+B[ntfs:0..1] = ( valid_ack -> SENDER[(ntfs+1)%2]
+               | invalid_ack -> A[ntfs]).
+
+
+RECEIVER = RECEIVER[0],
+RECEIVER[fe:0..1] = (from_phys_layer -> C[fe]),
+C[fe:0..1] = ( seq_expected -> to_net_layer -> D[(fe+1)%2]
+             | seq_unexpected -> D[fe]),
+D[fe:0..1] = (to_phys_layer -> RECEIVER[(fe-1)%2]).
+
+// porque se va a error con seq_unexpected???
+
+||NETWORK = (SENDER || RECEIVER).
+// falta modelar perdida, era con tau no??

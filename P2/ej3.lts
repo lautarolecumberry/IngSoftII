@@ -1,11 +1,15 @@
-// como hago la parte de "asegurando que no puede reservarse mas de una vez el mismo asiento en el
-// teatro."? lo unico quer se me ocurre es hacer un proceso asiento pero rari
+const M = 3
+
+ASIENTO = (libre -> reservar -> ocupado -> ASIENTO).
 
 COMPUTADORA = ( verDisponibilidad -> HACERRESERVA ),
-HACERRESERVA = ( disponible -> reserva -> COMPUTADORA
-               | noDisponible -> COMPUTADORA ).
+HACERRESERVA = ( a.libre -> a.reservar -> COMPUTADORA
+               | a.ocupado -> COMPUTADORA ).
 
 TERMINAL = ( mostrarAsientos -> TERMINAL
-           | verDisponibilidad -> TERMINAL ).
+           | verDisponibilidad -> TERMINAL).
 
-||TEATRO = (COMPUTADORA || TERMINAL).
+||TEATRO = (COMPUTADORA || TERMINAL || a[1..M]:ASIENTO) 
+           / {a[i:1..M].ocupado/a.ocupado, 
+              a[i:1..M].libre/a.libre, 
+              a[i:1..M].reservar/a.reservar}.

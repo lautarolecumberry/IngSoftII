@@ -1,0 +1,17 @@
+const K = 3
+range M = 0..K
+set S = {[M],[M][M]}
+
+ONEBUFF = (put[x:M] -> get[x] -> ONEBUFF).
+||PORT(N=2) = ([1..N]:ONEBUFF
+               )/{send/[1].put,
+                  [i:2..N].put/[i-1].get,
+                  receive/[N].get
+                 }@{send,receive}.
+
+ASENDER = ASENDER[0],
+ASENDER[e:M] = (port.send[e]->ASENDER[(e+1)%(K+1)]).
+ARECEIVER = (port.receive[v:M]->ARECEIVER).
+
+||AsyncMsg = (s[1..2]:ASENDER || ARECEIVER||port:PORT)
+             /{s[1..2].port.send/port.send}.
