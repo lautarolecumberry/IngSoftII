@@ -1,0 +1,15 @@
+const N = 2
+const M = 1
+
+LIBRO = ( disponible -> paraComprar -> LIBRO
+        | agotado -> LIBRO).
+
+TARJETA = ( conFondos -> paraComprar -> TARJETA
+          | sinFondos -> TARJETA).
+
+||LIBRERIA = (l[1..N]:LIBRO || t[1..M]:TARJETA)
+             /{paraComprar/l[1..N].paraComprar,
+               paraComprar/t[1..M].paraComprar}.
+
+// con N=M=1 anda hermoso.
+// como sincronizo que necesite solo una tarjeta con un libro para comprar?

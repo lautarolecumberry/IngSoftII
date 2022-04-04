@@ -1,0 +1,15 @@
+const N = 1
+
+PELUQUERO = ( when (c == 0) dormir -> PELUQUERO
+            | cortar -> PELUQUERO).
+
+CLIENTE = ( llegar -> irse -> CLIENTE
+          | llegar -> esperar -> CLIENTE
+          | cortar -> irseCortado -> CLIENTE).
+
+||PELUQUERIA = (p[1..2]:PELUQUERO || c[1..N]:CLIENTE).
+
+// sincronizar: _ p.cortar con c.cortar 
+//              _ c.irseCortado con p.cortar (cuando se va el cliente el peluquero queda disponible)
+
+// necesito una priority queue?
