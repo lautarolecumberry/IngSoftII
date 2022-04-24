@@ -1,0 +1,12 @@
+LABERINTO = C8, // celda inicial
+C0 = (north -> STOP | east -> C1),
+C1 = (west -> C0    | south -> C4 | east -> C2),
+C2 = (west -> C1    | south -> C5),
+C3 = (south -> C6   | east -> C4),
+C4 = (west -> C3    | north -> C1),
+C5 = (north -> C2   | south -> C8),
+C6 = (north -> C3),
+C7 = (east -> C8),
+C8 = (west -> C7    | north -> C5).
+
+// es esto? como veo el deadlock?

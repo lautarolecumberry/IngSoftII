@@ -1,0 +1,37 @@
+// VECINO = (izar -> ( entrar -> recoger -> salir -> arriar -> VECINO 
+//                   | arriar -> VECINO)).
+
+// ||JARDIN = (n1:VECINO || n2:VECINO).
+
+const True = 1
+const False = 0
+range Bool = False..True
+set BoolActions = {setTrue,setFalse,[False],[True]}
+BOOLVAR = VAL[False],
+
+VAL[v:Bool] = ( setTrue -> VAL[True]
+              | setFalse -> VAL[False]
+              | [v] -> VAL[v] ).
+
+||FLAGS = (flag1:BOOLVAR||flag2:BOOLVAR).
+
+N1 = (flag1.setTrue -> ( flag2[False] -> entrar -> recoger -> salir -> flag1.setFalse -> VECINO
+                       | flag2[True] -> flag1.setFalse -> VECINO)).
+
+N2 = (flag2.setTrue -> ( flag1[False] -> entrar -> recoger -> salir -> flag2.setFalse -> VECINO
+                       | flag1[True] -> flag2.setFalse -> VECINO)).
+
+||JARDIN = (n1:N1 || n2:N2).
+
+// safety = nunca n1 y n2 en el jardin
+property S = ( n1.izar -> n1.arriar -> n2.izar -> S
+             | n2.izar -> n2.arriar -> n1.izar -> S).
+
+||SAFE_GARDEN = (JARDIN || S).
+
+// liveness = eventualmente van a entrar ambos al jardin.
+progress LN1 = {n1.recoger}
+progress LN2 = {n2.recoger}
+
+// ¿Existe alguna circunstancia adversa en la cual los vecinos no puedan progresar? ¿Qué ocurrre si alguno de los vecinos es egoista?
+// Aun asumiendo que hay un scheduling equitativo, puede darse que una vez que entra un vecino no sale nunca, por lo cual el otro vecino se va a quedar sin progresar.

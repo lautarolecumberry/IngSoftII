@@ -1,0 +1,17 @@
+ASCENSOR = ASCENSOR[0],
+ASCENSOR[c:0..3] = ( when (c<2) enter -> ASCENSOR[c+1]
+| when (c>0) exit -> ASCENSOR[c-1]).
+
+PERSONA = (enter -> exit -> PERSONA).
+
+||ASC = (p[1..3]:PERSONA || ASCENSOR)
+/{p[i:1..3].exit/exit,
+p[i:1..3].enter/enter}.
+
+property CAPMAX = SIZE[0],
+SIZE[i:0..3] = ( when (i<1) p[1..3].enter -> SIZE[i+1]
+| p[1..3].exit -> SIZE[i-1]).
+
+||CHECK = (ASC || CAPMAX).
+
+// en el ascensor pueden entrar mas de 1 persona y por eso se rompe :)
