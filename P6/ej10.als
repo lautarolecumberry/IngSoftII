@@ -33,8 +33,23 @@ fact initialState {
     D3.pos = 1
 }
 
+pred move [from,fromP,to,toP: set Disco] {
+	fromP = from - from.top && // es esto?
+	toP = to + from.top
+}
+
+fact stateTransition {
+	all s: State, sP: next[s] |
+		( move[s.p1,sP.p1,s.p2,sP.p2 ] ) && // bien???
+		( move[s.p1,sP.p1,s.p3,sP.p3 ] ) &&
+		( move[s.p2,sP.p2,s.p1,sP.p1 ] ) &&
+		( move[s.p2,sP.p2,s.p3,sP.p3 ] ) &&
+		( move[s.p3,sP.p3,s.p1,sP.p1 ] ) &&
+		( move[s.p3,sP.p3,s.p2,sP.p2 ] )
+}
+
 pred solvePuzzle[] {
-  some s:State | s.p3 = Disco // falta el orden
+  some s:State | s.p3 = Disco && enOrden[s.p3] // falta el orden
 }
 
 run solvePuzzle for 3
